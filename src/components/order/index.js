@@ -2,58 +2,70 @@ import React, {Component} from 'react'
 
 class Order extends Component {
     state = {
-        value: 0,
-        addOrders: 1,
-        id: 0,
-        i:0
+        selectedId: 0,
+        selectedIndex: 0,
+        valueEntered:0,
+        valueValues: [],
+        setElements:1,
+        valueId: [0],
     };
     render() {
-        const {book} =this.props
-        const error = <div className="okno" onClick={this.clear}>Неправельное колличество!!!</div>
-        var toms = [];
-        var is=0;
-        toms = book.map((b, index) => {
-            return <option id={index}>{b.title}</option>
+        const {book} =this.props;
+        var page = [];
+        var cost = [];
+        var sum;
+        var toms = book.map((b, index) => {
+            return <option  index={index}>{b.title}</option>
         })
-        var page = []
-        for(var i=0;i<this.state.addOrders;i++) {
+
+        for(var i = 0;i<this.state.setElements;i++) {
             var order = <div>
-            <div>
-                <select className="select" id="select" onChange={this.selected}>{toms}</select>
-            </div>
-            
-            <div>
-                <div id="edit">
-                <input type="number" id={is++} onChange={this.handClick} />
-                <div className="prise">cost = {this.state.value * book[this.state.id].prise}</div>
-                </div>
-            </div>
-        </div>;
-            page.push(order)
+                            <div>
+                                <select id={i} onClick={this.selected}>{toms}</select>
+                            </div>
+                            <div>
+                                <input type="namber" id={i} onChange={this.handClick}/>
+                                <div id={i}>const={this.state.valueValues[i] * book[this.state.valueId[i]].prise}</div>
+                            </div>
+                        </div>;
+            page.push(order);
         }
+
+        for(var d = 0;d < cost.length;d++) {
+            sum = sum + cost[d]
+        }
+
         return (
             <div>
                 {page}
-                <div>
-                {this.state.value > book[this.state.id].quantity ? error : ""}
-                </div>
-                <button className="toOrder">To order</button>
+                <button onClick={this.addElement}>+</button>
             </div>
         )
         
     }
-    handClick = (e) => {
-        this.setState({ value: e.target.value })
-        console.log(e.target.value)
+    addElement = () => {
+        this.setState({ setElements: this.state.setElements + 1})
+        this.setState(state => {
+            state.valueId[state.setElements -1 ] = 0;
+        })
     }
-    clear = () => {
-        document.getElementById().value = 0
-        this.setState({ value: 0 })
+    selected = (element) => {
+        var selected = document.getElementById(element.target.id);
+        this.setState({selectedId:selected.id})
+        this.setState({selectedIndex: selected.options[selected.selectedIndex].index})
+        this.setState(state => {
+            state.valueId[state.selectedId] = state.selectedIndex;
+     
+        })
     }
-    selected = () => {
-        var e = document.getElementById("select");
-        var index = e.options[e.selectedIndex].index;
-        this.setState({id: index})
+    handClick = (element) => {
+        var elements = element.target
+        this.setState({selectedId:elements.id})
+        this.setState({valueEntered: elements.value})
+        this.setState(state => {
+            state.valueValues[state.selectedId] = state.valueEntered;
+
+        })
     }
 }
 
