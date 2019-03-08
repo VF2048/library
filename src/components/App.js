@@ -21,19 +21,20 @@ class App extends PureComponent {
                 <div className='headline'>
                     <h1>
                         dsg
-                        {console.log(books)}
                     </h1>
                 </div>
-                <div className="menu">
-                        <Menu updateData={this.updateData} />
-                </div>
-                <div className="catalog">
-                    
-                    <div className="item">
-                        {bookss}
+                <div className="main">
+                    <div className="menu">
+                            <Menu updateData={this.updateData} />
                     </div>
-                    <div className="item">
-                        {order}
+                    <div className="catalog">
+                        
+                        <div className="item">
+                            {bookss}
+                        </div>
+                        <div className="item">
+                            {order}
+                        </div>
                     </div>
                 </div>
             </div>

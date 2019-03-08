@@ -1,5 +1,7 @@
+.main {
+   display: flex; 
+}
 .menu {
-    display: inline-block;
     height: 100%;
     margin: 10px;
     width: 90px;
@@ -11,8 +13,8 @@
 }
 .catalog {
     height: 80%;
-    display: inline-block;
     width: 80%;
+    margin: 10px;
     min-width: 190px;
     background-color: #ecf0f1;
     box-shadow: 0 0 3px #999999;
@@ -83,4 +85,9 @@
 }
 .toOrder {
     width: 100%
+}
+@media screen and (max-width: 540px) {
+    .main{
+        flex-direction: column;
+    }
 }
